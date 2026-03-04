@@ -20,13 +20,13 @@ public class InventoryServiceApplication {
 		return (args) -> {
 			inventoryRepository.save(
 					Inventory.builder()
-							.skuCode("Iphone 17")
-							.quantity(2)
+							.skuCode("iphone_17")
+							.quantity(1)
 							.build()
 			);
 			inventoryRepository.save(
 					Inventory.builder()
-							.skuCode("Samsung S24 Ultra")
+							.skuCode("samsung_S24")
 							.quantity(5)
 							.build()
 			);
