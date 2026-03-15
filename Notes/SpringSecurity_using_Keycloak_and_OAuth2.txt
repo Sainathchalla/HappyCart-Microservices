@@ -15,7 +15,7 @@ Keycloak → authorization server implementation
 
 Process of Authentication and Authorization.
 
--> First we should have KeyCloak Setup which should have all the info about clients, users etc..
+-> First we should have KeyCloak Setup which should have all the info about clients, users etc.
 
 Step-1:  Browser(User) -> Gateway
 
@@ -26,7 +26,7 @@ Step-1:  Browser(User) -> Gateway
 Step-2: Browser -> Keycloak
 
 -> So, Browser goes to Keycloak
--> Here Authorization Server is KeyCloak, now we enter keycloak verification stage, where you need to provide your creds and KeyCloak verifies those.
+-> Here Authorization Server is KeyCloak, now we enter keycloak verification stage, where you need to provide your credentials and KeyCloak verifies those.
 -> Once verified, it will give you Access Token, Refresh Token, ID Token to the browser. All these are stored in browser.
 -> Access Token = Used for API calls
 -> Refresh Token = Used to get new Access and Refresh Token, when current access token expires
@@ -43,7 +43,7 @@ b) Again a network call is made to Keycloak for introspection, to know that the 
 # Spring Security also extracts User, Roles, Permissions from the token.
 
 -> Gateway sees the token. Which is a JWT. JWT has Header, Payload and Signature.
--> Gateway need to validate the token locally. Validation includes: Verify JWT signature, Check expiry, Check issuer..
+-> Gateway need to validate the token locally. Validation includes: Verify JWT signature, Check expiry, Check issuer.
 -> First question Gateway should ask whether this token is really given by Keycloak? For that we need to see the Signature right.
 -> Private key creates the Signature, Public key verifies the signature.
 -> Now Gateway requests for public key from Keycloak, it downloads the JSON which then converted to public key using Spring Security.
