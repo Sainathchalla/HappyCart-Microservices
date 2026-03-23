@@ -1,0 +1,21 @@
+version: "3.8"
+
+services:
+  discovery-service:
+    build: .
+    container_name: discovery-service
+    environment:
+      - DT_SERVICE_NAME=discovery-service
+    ports:
+      - "8761:8761"
+    networks:
+      - backend
+
+volumes:
+  mysql_data:
+    driver: local
+
+networks:
+  backend:
+    external: true
+    name: microservices-net

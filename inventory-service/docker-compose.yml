@@ -1,7 +1,7 @@
 version: "3.8"
 
 services:
-  mysql:
+  inventory-mysql:
     image: mysql:8.0
     container_name: inventory-mysql
     restart: always
@@ -11,7 +11,7 @@ services:
       MYSQL_ROOT_PASSWORD: mysql
       MYSQL_DATABASE: inventory-service
     volumes:
-      - mysql_data:/var/lib/mysql
+      - inventory_mysql_data:/var/lib/mysql
     networks:
       - backend
 
@@ -22,12 +22,27 @@ services:
     ports:
       - "8092:8080"
     depends_on:
-      - mysql
+      - inventory-mysql
+    networks:
+      - backend
+
+  inventory-service:
+    build: .
+    container_name: inventory-service
+    environment:
+      - DT_SERVICE_NAME=inventory-service
+    ports:
+      - "8081:8081"
+    depends_on:
+      - inventory-mysql
     networks:
       - backend
 
 volumes:
-  mysql_data:
+  inventory_mysql_data:
+    driver: local
 
 networks:
   backend:
+    external: true
+    name: microservices-net

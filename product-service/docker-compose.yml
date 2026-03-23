@@ -1,8 +1,7 @@
 version: "3.8"
 
 services:
-
-  mongodb:
+  product-mongodb:
     image: mongo:7.0
     container_name: mongodb
     restart: always
@@ -23,7 +22,19 @@ services:
       - ME_CONFIG_MONGODB_SERVER=mongodb
       - ME_CONFIG_BASICAUTH=false
     depends_on:
-      - mongodb
+      - product-mongodb
+    networks:
+      - backend
+
+  product-service:
+    build: .
+    container_name: product-service
+    environment:
+      - DT_SERVICE_NAME=product-service
+    ports:
+      - "8083:8083"
+    depends_on:
+      - product-mongodb
     networks:
       - backend
 
@@ -33,4 +44,5 @@ volumes:
 
 networks:
   backend:
-    driver: bridge
+    external: true
+    name: microservices-net

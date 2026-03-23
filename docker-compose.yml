@@ -1,7 +1,6 @@
 version: '3.8'
 
 services:
-
   keycloak:
     image: quay.io/keycloak/keycloak:24.0
     container_name: keycloak
@@ -9,11 +8,22 @@ services:
     environment:
       KEYCLOAK_ADMIN: admin
       KEYCLOAK_ADMIN_PASSWORD: admin
+      # Important for correct issuer
+      KC_HOSTNAME: keycloak:8080
+      KC_HOSTNAME_STRICT: "false"
+      KC_PROXY: edge
     ports:
       - "8180:8080"
     volumes:
       - keycloak_data:/opt/keycloak/data
     restart: unless-stopped
+    networks:
+      - backend
 
 volumes:
   keycloak_data:
+
+networks:
+  backend:
+    external: true
+    name: microservices-net
