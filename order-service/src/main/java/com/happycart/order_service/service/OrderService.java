@@ -26,7 +26,7 @@ public class OrderService {
     private final OrderRepository orderRepository;
     private final WebClient.Builder webClientBuilder;
 
-    public void createOrder(OrderRequest orderRequest) {
+    public String createOrder(OrderRequest orderRequest) {
         Order order = Order.builder()
                 .orderNumber(UUID.randomUUID().toString())
                 .orderLineItemsList(
@@ -69,10 +69,11 @@ public class OrderService {
 
         if (allProductsInStock) {
             orderRepository.save(order);
+            log.info("Order saved with id: {}", order.getId());
+            return "Order Place Successfully..!!";
         } else {
             throw new IllegalArgumentException("Product is not in stock, Please try again later...");
         }
-        log.info("Order saved with id: {}", order.getId());
     }
 
     private OrderLineItems mapToOrderLineItems(OrderLineItemsRequest orderLineItemsRequest) {

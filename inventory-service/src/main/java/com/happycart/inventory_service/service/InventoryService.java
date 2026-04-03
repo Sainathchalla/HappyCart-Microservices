@@ -4,6 +4,7 @@ import com.happycart.inventory_service.dto.InventoryResponse;
 import com.happycart.inventory_service.model.Inventory;
 import com.happycart.inventory_service.repository.InventoryRepository;
 import lombok.RequiredArgsConstructor;
+import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -19,8 +20,14 @@ import java.util.stream.Collectors;
 public class InventoryService {
     private final InventoryRepository inventoryRepository;
 
+//    @SneakyThrows
     @Transactional(readOnly = true)
     public List<InventoryResponse> isInStock(List<String> skuCodes) {
+
+//        Added to test Resilience4j
+//        log.info("Thread wait started");
+//        Thread.sleep(10000);
+//        log.info("Thread wait Ended");
 
         // skuCodes -> A, B, C
         // Inventory -> A
